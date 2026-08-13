@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CYBER-UNICORN DUCK GRID // CS Portfolio</title>
+  
+  <!-- Retro-Futuristic Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --tron-cyan: #00f3ff;
+      --tron-blue: #0055ff;
+      --unicorn-pink: #ff007f;
+      --unicorn-purple: #b000ff;
+      --duck-yellow: #ffee00;
+      --duck-orange: #ff5500;
+      --bg-dark: #06060e;
+      --card-bg: rgba(13, 14, 28, 0.85);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: #e0f7fc;
+      font-family: 'Share Tech Mono', monospace;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* TRON NEON GRID BACKGROUND */
+    #grid-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -2;
+      background: 
+        linear-gradient(transparent 95%, rgba(0, 243, 255, 0.2) 95%),
+        linear-gradient(90deg, transparent 95%, rgba(255, 0, 127, 0.15) 95%);
+      background-size: 40px 40px;
+      transform: perspective(500px) rotateX(60deg) translateY(-100px) scale(2);
+      animation: grid-scroll 20s linear infinite;
+    }
+
+    @keyframes grid-scroll {
+      0% { background-position: 0 0; }
+      100% { background-position: 0 400px; }
+    }
+
+    /* UNICORN SPARKLE CANVAS */
+    #fx-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* CONTAINER */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    /* HEADER & GLITCH TITLE */
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+      position: relative;
+    }
+
+    .unicorn-horn {
+      font-size: 3rem;
+      filter: drop-shadow(0 0 10px var(--unicorn-pink));
+      animation: float 3s ease-in-out infinite;
+      display: inline-block;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-12px) rotate(5deg); }
+    }
+
+    h1.title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      background: linear-gradient(90deg, var(--tron-cyan), var(--unicorn-pink), var(--duck-yellow), var(--tron-cyan));
+      background-size: 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: rainbow-shift 6s ease infinite;
+      text-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
+    }
+
+    @keyframes rainbow-shift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .subtitle {
+      color: var(--tron-cyan);
+      font-size: 1.1rem;
+      margin-top: 10px;
+      text-shadow: 0 0 8px var(--tron-cyan);
+    }
+
+    /* BUTTONS & LINKS */
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 25px;
+      flex-wrap: wrap;
+    }
+
+    .cyber-btn {
+      font-family: 'Orbitron', sans-serif;
+      padding: 12px 24px;
+      background: rgba(0, 0, 0, 0.6);
+      border: 2px solid var(--tron-cyan);
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: bold;
+      border-radius: 4px;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cyber-btn:hover {
+      background: var(--tron-cyan);
+      color: #000;
+      box-shadow: 0 0 25px var(--tron-cyan), 0 0 10px var(--unicorn-pink);
+      transform: translateY(-3px) scale(1.03);
+    }
+
+    .cyber-btn.pink {
+      border-color: var(--unicorn-pink);
+      box-shadow: 0 0 10px rgba(255, 0, 127, 0.2);
+    }
+
+    .cyber-btn.pink:hover {
+      background: var(--unicorn-pink);
+      color: #fff;
+      box-shadow: 0 0 25px var(--unicorn-pink), 0 0 10px var(--duck-yellow);
+    }
+
+    .cyber-btn.yellow {
+      border-color: var(--duck-yellow);
+      color: var(--duck-yellow);
+      box-shadow: 0 0 10px rgba(255, 238, 0, 0.2);
+    }
+
+    .cyber-btn.yellow:hover {
+      background: var(--duck-yellow);
+      color: #000;
+      box-shadow: 0 0 25px var(--duck-yellow), 0 0 10px var(--tron-cyan);
+    }
+
+    /* SECTIONS & CARDS */
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.6rem;
+      color: var(--duck-yellow);
+      margin: 50px 0 20px 0;
+      border-bottom: 2px dashed var(--unicorn-pink);
+      padding-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--tron-cyan);
+      border-radius: 8px;
+      padding: 22px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--tron-cyan), var(--unicorn-pink), var(--duck-yellow));
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: var(--unicorn-pink);
+      box-shadow: 0 0 20px rgba(255, 0, 127, 0.3);
+    }
+
+    .card h3 {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--tron-cyan);
+      font-size: 1.25rem;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #c0d8e6;
+      margin-bottom: 15px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 15px;
+    }
+
+    .tag {
+      background: rgba(0, 243, 255, 0.1);
+      border: 1px solid var(--tron-cyan);
+      color: var(--tron-cyan);
+      padding: 3px 8px;
+      font-size: 0.75rem;
+      border-radius: 3px;
+    }
+
+    .tag.unicorn {
+      border-color: var(--unicorn-pink);
+      color: var(--unicorn-pink);
+      background: rgba(255, 0, 127, 0.1);
+    }
+
+    .tag.duck {
+      border-color: var(--duck-yellow);
+      color: var(--duck-yellow);
+      background: rgba(255, 238, 0, 0.1);
+    }
+
+    /* GITHUB LIVE SEARCH & REPO SECTION */
+    .github-control {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .github-input {
+      background: rgba(0,0,0,0.7);
+      border: 1px solid var(--tron-cyan);
+      color: #fff;
+      padding: 10px 15px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 1rem;
+      border-radius: 4px;
+      outline: none;
+      flex-grow: 1;
+      max-width: 300px;
+    }
+
+    .github-input:focus {
+      border-color: var(--unicorn-pink);
+      box-shadow: 0 0 10px var(--unicorn-pink);
+    }
+
+    .repo-stats {
+      display: flex;
+      gap: 15px;
+      font-size: 0.85rem;
+      color: var(--duck-yellow);
+      margin-top: 10px;
+    }
+
+    /* DUCK DEBUGGER EASTER EGG WIDGET */
+    .rubber-duck-panel {
+      background: rgba(255, 238, 0, 0.05);
+      border: 2px dashed var(--duck-yellow);
+      border-radius: 12px;
+      padding: 25px;
+      margin: 50px 0;
+      text-align: center;
+      position: relative;
+    }
+
+    .giant-duck {
+      font-size: 4rem;
+      cursor: pointer;
+      user-select: none;
+      display: inline-block;
+      transition: transform 0.1s ease;
+      filter: drop-shadow(0 0 15px var(--duck-yellow));
+    }
+
+    .giant-duck:active {
+      transform: scale(1.3) rotate(-15deg);
+    }
+
+    .quack-counter {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.2rem;
+      color: var(--duck-yellow);
+      margin-top: 10px;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 40px 0;
+      color: #6688a0;
+      font-size: 0.85rem;
+      border-top: 1px solid rgba(0, 243, 255, 0.2);
+      margin-top: 60px;
+    }
+
+    footer a {
+      color: var(--unicorn-pink);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-shadow: 0 0 8px var(--unicorn-pink);
+    }
+
+    /* LOADING SPINNER */
+    .loader {
+      color: var(--tron-cyan);
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TRON PERSPECTIVE GRID -->
+  <div id="grid-bg"></div>
+
+  <!-- SPARKLE / DUCK PARTICLES CANVAS -->
+  <canvas id="fx-canvas"></canvas>
+
+  <div class="container">
+
+    <!-- HERO HEADER -->
+    <header>
+      <div class="unicorn-horn">🦄✨🦆</div>
+      <h1 class="title">TRON // UNICORN // DUCK</h1>
+      <p class="subtitle">COMPUTER SCIENCE &amp; SOFTWARE ENGINEERING PROTOCOL</p>
+
+      <div class="nav-links">
+        <!-- LINKEDIN LINK PROVIDED -->
+        <a href="https://www.linkedin.com/in/adam-lueken-37455a8/" target="_blank" class="cyber-btn pink">
+          💼 LinkedIn Profile
+        </a>
+        
+        <!-- GITHUB LINK -->
+        <a href="https://github.com" id="github-main-link" target="_blank" class="cyber-btn">
+          ⚡ GitHub Profile
+        </a>
+
+        <!-- INTERACTIVE SOUND BUTTON -->
+        <button class="cyber-btn yellow" onclick="triggerQuack()">
+          🦆 Executive Quack
+        </button>
+      </div>
+    </header>
+
+    <!-- LIVE GITHUB TOP REPOSITORIES SECTION -->
+    <section>
+      <div class="section-title">
+        <span>⚡ TOP GITHUB REPOSITORIES</span>
+        <span style="font-size:0.8rem; color:var(--tron-cyan);">(Live API Fetch)</span>
+      </div>
+
+      <div class="github-control">
+        <input 
+          type="text" 
+          id="gh-username" 
+          class="github-input" 
+          placeholder="Enter GitHub Username..." 
+          value="octocat" 
+        />
+        <button class="cyber-btn" onclick="fetchTopRepos()">
+          Sync Repositories
+        </button>
+      </div>
+
+      <div id="repo-container" class="card-grid">
+        <div class="loader">Accessing Cyber Grid for GitHub Repos...</div>
+      </div>
+    </section>
+
+    <!-- FEATURED CS & ENGINEERING PROJECTS -->
+    <section>
+      <div class="section-title">
+        <span>🦄 FEATURED ENGINEERING PROJECTS</span>
+      </div>
+
+      <div class="card-grid">
+
+        <!-- PROJECT CARD 1 -->
+        <div class="card">
+          <h3>Quantum Cyber-Duck Pathfinder</h3>
+          <p>A multi-threaded A* pathfinding visualization algorithm built in C++ and WebGL. Simulates high-speed navigation through neon Tron grid mazes.</p>
+          <div class="tags">
+            <span class="tag">C++</span>
+            <span class="tag unicorn">OpenGL / WebGL</span>
+            <span class="tag duck">Algorithms</span>
+          </div>
+        </div>
+
+        <!-- PROJECT CARD 2 -->
+        <div class="card">
+          <h3>Rainbow Synth Neural Net</h3>
+          <p>Machine learning model that converts GitHub commit histories into retro synthwave polyphonic soundscapes and interactive light patterns.</p>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag unicorn">PyTorch</span>
+            <span class="tag">WebAudio API</span>
+          </div>
+        </div>
+
+        <!-- PROJECT CARD 3 -->
+        <div class="card">
+          <h3>Rubber Duck Distributed Debugger</h3>
+          <p>A resilient microservices monitoring tool that intercepts stack traces and generates human-friendly debug quacks in real-time.</p>
+          <div class="tags">
+            <span class="tag">Go</span>
+            <span class="tag duck">Docker</span>
+            <span class="tag unicorn">gRPC</span>
+          </div>
+        </div>
+
+        <!-- PROJECT CARD 4 -->
+        <div class="card">
+          <h3>Hyper-Grid Memory Allocator</h3>
+          <p>Custom low-level heap memory manager engineered in C with zero fragmentation algorithms and visual dynamic heatmaps.</p>
+          <div class="tags">
+            <span class="tag">C</span>
+            <span class="tag">Systems Programming</span>
+            <span class="tag duck">Linux</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- RUBBER DUCK DEBUGGER EASTER EGG PANEL -->
+    <section class="rubber-duck-panel">
+      <h2 style="font-family:'Orbitron'; color:var(--duck-yellow); margin-bottom: 10px;">
+        🦆 RUBBER DUCK DEBUGGING PROTOCOL
+      </h2>
+      <p style="color: #bcd;">Stuck on an algorithm or memory leak? Click the cyber-duck below to debug your code!</p>
+      
+      <div style="margin: 20px 0;">
+        <span class="giant-duck" onclick="triggerQuack()">🦆</span>
+      </div>
+
+      <div class="quack-counter" id="quack-count-display">
+        QUACK DEBUGGER COUNTER: 0
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <p>Powered by Neon Grids, Rainbow Sparkles &amp; Rubber Ducks 🦆✨</p>
+      <p style="margin-top: 8px;">
+        Connect on <a href="https://www.linkedin.com/in/adam-lueken-37455a8/" target="_blank">LinkedIn</a>
+      </p>
+    </footer>
+
+  </div>
+
+  <!-- INTERACTIVE JAVASCRIPT LOGIC -->
+  <script>
+    // 1. WEB AUDIO API SYNTHESIZER (QUACK SOUND EFFECT)
+    let quackCount = 0;
+    
+    function triggerQuack() {
+      quackCount++;
+      document.getElementById('quack-count-display').innerText = `QUACK DEBUGGER COUNTER: ${quackCount}`;
+
+      // Create Web Audio Context for synthesize quack without external sound files
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContext) return;
+      
+      const ctx = new AudioContext();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      osc.type = 'sawtooth';
+      
+      // Frequency drop mimics duck quack sound
+      osc.frequency.setValueAtTime(350, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(140, ctx.currentTime + 0.18);
+
+      gain.gain.setValueAtTime(0.3, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.2);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc.start();
+      osc.stop(ctx.currentTime + 0.2);
+
+      // Spawn floating sparkles/ducks on canvas
+      spawnParticle();
+    }
+
+    // 2. DYNAMIC GITHUB API REPO FETCHER
+    async function fetchTopRepos() {
+      const usernameInput = document.getElementById('gh-username').value.trim();
+      const repoContainer = document.getElementById('repo-container');
+      const ghMainLink = document.getElementById('github-main-link');
+
+      if (!usernameInput) {
+        repoContainer.innerHTML = `<div class="loader" style="color:var(--unicorn-pink)">Please enter a valid GitHub username!</div>`;
+        return;
+      }
+
+      ghMainLink.href = `https://github.com/${usernameInput}`;
+
+      repoContainer.innerHTML = `<div class="loader">Querying GitHub Grid API for @${usernameInput}...</div>`;
+
+      try {
+        // Fetch up to 100 public repos sorted by updated date
+        const response = await fetch(`https://api.github.com/users/${usernameInput}/repos?per_page=100&sort=updated`);
+        
+        if (!response.ok) {
+          throw new Error(`GitHub user "${usernameInput}" not found.`);
+        }
+
+        const repos = await response.json();
+
+        if (repos.length === 0) {
+          repoContainer.innerHTML = `<div class="loader">No public repositories found for @${usernameInput}.</div>`;
+          return;
+        }
+
+        // Sort repos by star count descending, take top 6
+        const topRepos = repos
+          .sort((a, b) => b.stargazers_count - a.stargazers_count)
+          .slice(0, 6);
+
+        repoContainer.innerHTML = '';
+
+        topRepos.forEach(repo => {
+          const card = document.createElement('div');
+          card.className = 'card';
+
+          const desc = repo.description || 'No description provided for this cyber-repository.';
+          const lang = repo.language || 'Code';
+
+          card.innerHTML = `
+            <h3>${repo.name}</h3>
+            <p>${desc}</p>
+            <div class="repo-stats">
+              <span>⭐ ${repo.stargazers_count} Stars</span>
+              <span>🍴 ${repo.forks_count} Forks</span>
+            </div>
+            <div class="tags">
+              <span class="tag duck">${lang}</span>
+              <a href="${repo.html_url}" target="_blank" style="color:var(--tron-cyan); text-decoration:none; font-size:0.8rem; margin-left:auto;">
+                View Source ➔
+              </a>
+            </div>
+          `;
+          repoContainer.appendChild(card);
+        });
+
+      } catch (err) {
+        repoContainer.innerHTML = `<div class="loader" style="color:var(--unicorn-pink)">⚠️ Grid Error: ${err.message}</div>`;
+      }
+    }
+
+    // Load initial repos on start
+    window.addEventListener('DOMContentLoaded', fetchTopRepos);
+
+    // 3. BACKGROUND CANVAS PARTICLES (UNICORN SPARKLES & DUCKS)
+    const canvas = document.getElementById('fx-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor(x, y) {
+        this.x = x || Math.random() * canvas.width;
+        this.y = y || Math.random() * canvas.height;
+        this.size = Math.random() * 16 + 10;
+        this.speedX = (Math.random() - 0.5) * 1.5;
+        this.speedY = (Math.random() - 0.5) * 1.5;
+        this.char = Math.random() > 0.5 ? '✨' : '🦆';
+        this.opacity = 1;
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.opacity -= 0.005;
+      }
+
+      draw() {
+        ctx.globalAlpha = Math.max(this.opacity, 0);
+        ctx.font = `${this.size}px monospace`;
+        ctx.fillText(this.char, this.x, this.y);
+      }
+    }
+
+    function spawnParticle() {
+      for (let i = 0; i < 5; i++) {
+        particles.push(new Particle(canvas.width / 2, canvas.height / 2));
+      }
+    }
+
+    // Initial background particles
+    for (let i = 0; i < 25; i++) {
+      particles.push(new Particle());
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      particles.forEach((p, index) => {
+        p.update();
+        p.draw();
+        if (p.opacity <= 0) {
+          particles[index] = new Particle(); // Regenerate
+        }
+      });
+
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+  </script>
+
+</body>
+</html>
